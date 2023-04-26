@@ -5,6 +5,13 @@
         <div class="row pb-2">
             <h2>Create Category</h2>
             <hr/>
+            @if (ViewData.ModelState.IsValid == false)
+            {
+                <div class="alert alert-danger" role="alert">
+                    <span>Oops, there was a problem:</span>
+                    <div asp-validation-summary="All"></div>
+                </div>
+            }
         </div>
         <div class="mb-3">
             <label asp-for="Name"></label>
