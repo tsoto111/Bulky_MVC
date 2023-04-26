@@ -32,9 +32,19 @@ namespace Bulky2.Controllers
         [HttpPost]
         public IActionResult Create(Category obj)
         {
-            _db.Categories.Add(obj);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+            if(obj.ValidateFieldsMatch(obj))
+            {
+                ModelState.AddModelError("name", "The \"Display Order\" cannot exactly match the \"Category Name\".");
+            }
+
+            if (ModelState.IsValid)
+            {
+                _db.Categories.Add(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View();
         }
     }
 }
