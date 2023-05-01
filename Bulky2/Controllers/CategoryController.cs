@@ -32,10 +32,13 @@ namespace Bulky2.Controllers
         [HttpPost]
         public IActionResult Create(Category obj)
         {
+            /*
+            // Example of a Custom validation added to the NAME field.
             if(obj.ValidateFieldsMatch(obj))
             {
                 ModelState.AddModelError("name", "The \"Display Order\" cannot exactly match the \"Category Name\".");
             }
+            */
 
             if (ModelState.IsValid)
             {
