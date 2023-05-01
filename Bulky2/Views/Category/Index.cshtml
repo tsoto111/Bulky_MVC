@@ -28,10 +28,10 @@
                 <td>@obj.DisplayOrder</td>
                 <td class="d-flex justify-content-end">
                     <div class="btn-group" role="group">
-                        <a asp-controller="Category" action="Edit" class="btn btn-primary ms-auto">
+                        <a asp-controller="Category" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary ms-auto">
                             <i class="bi bi-pencil-square"></i> Edit
                         </a>
-                        <a asp-controller="Category" action="Delete" class="btn btn-danger">
+                        <a asp-controller="Category" asp-action="Delete" class="btn btn-danger">
                             <i class="bi bi-trash3-fill"></i> Delete
                         </a>
                     </div>

@@ -49,5 +49,24 @@ namespace Bulky2.Controllers
 
             return View();
         }
+
+        // Edit Action
+        public IActionResult Edit(int? ID)
+        {
+            if (ID == 0 || ID == null)
+            {
+                return NotFound();
+            }
+
+            Category? categoryFromDb = _db.Categories.Find(ID);
+            // Category? categoryFromDb1 = _db.Categories.FirstOrDefault(c => c.Id == ID); // Another way to query a single record by ID.
+            // Category? categoryFromDb2 = _db.Categories.Where(u => u.Id === ID).FirstOrDefault(); // Another way to query a single record by ID.
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(categoryFromDb);
+        }
     }
 }
