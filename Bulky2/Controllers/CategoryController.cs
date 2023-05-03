@@ -10,20 +10,26 @@ namespace Bulky2.Controllers
         //       controller methods.
         private readonly ApplicationDbContext _db;
 
+        // ============================================
         // Class's Constructor
+        // ============================================
         public CategoryController(ApplicationDbContext db)
         {
             _db = db;
         }
 
+        // ============================================
         // Index Action
+        // ============================================
         public IActionResult Index()
         {
             List<Category> objCategoryList = _db.Categories.ToList();
             return View(objCategoryList);
         }
 
+        // ============================================
         // Create Action
+        // ============================================
         public IActionResult Create()
         {
             return View();
@@ -50,7 +56,9 @@ namespace Bulky2.Controllers
             return View();
         }
 
+        // ============================================
         // Edit Action
+        // ============================================
         public IActionResult Edit(int? ID)
         {
             if (ID == 0 || ID == null)
@@ -80,6 +88,44 @@ namespace Bulky2.Controllers
             }
 
             return View();
+        }
+
+        // ============================================
+        // Delete Action
+        // ============================================
+        public ActionResult Delete(int? ID)
+        {
+            if (ID == 0 || ID == null)
+            {
+                return NotFound();
+            }
+
+            Category? categoryFromDb = _db.Categories.Find(ID);
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(categoryFromDb);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeletePOST(int? ID)
+        {
+            if (ID == 0 || ID == null)
+            {
+                return NotFound();
+            }
+
+            Category? categoryFromDb = _db.Categories.Find(ID);
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+
+            _db.Categories.Remove(categoryFromDb);
+            _db.SaveChanges(true);
+            return RedirectToAction("Index");
         }
     }
 }
