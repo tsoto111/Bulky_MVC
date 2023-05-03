@@ -9,14 +9,7 @@
             <i class="bi bi-plus-circle pe-2"></i>Create New Category
         </a>
     </div>
-    @if(TempData["success"] != null)
-    {
-        <div class="col-12">
-            <div class="alert alert-success mb-0 mt-3" role="alert">
-                @TempData["Success"]
-            </div>
-        </div>
-    }
+    <partial name="_Notification" />
 </div>
 
 <table class="table table-bordered table-striped">
