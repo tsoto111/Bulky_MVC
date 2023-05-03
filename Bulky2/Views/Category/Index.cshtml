@@ -1,16 +1,22 @@
 ﻿@model List<Category>
 
-<div class="container">
-    <div class="row py-4">
-        <div class="col-6">
-            <h2>Category List</h2>
-        </div>
-        <div class="col-6 text-end">
-            <a asp-controller="Category" asp-action="Create" class="btn btn-primary d-inline-flex align-items-center">
-                <i class="bi bi-plus-circle pe-2"></i>Create New Category
-            </a>
-        </div>
+<div class="row py-4">
+    <div class="col-6">
+        <h2>Category List</h2>
     </div>
+    <div class="col-6 text-end">
+        <a asp-controller="Category" asp-action="Create" class="btn btn-primary d-inline-flex align-items-center">
+            <i class="bi bi-plus-circle pe-2"></i>Create New Category
+        </a>
+    </div>
+    @if(TempData["success"] != null)
+    {
+        <div class="col-12">
+            <div class="alert alert-success mb-0 mt-3" role="alert">
+                @TempData["Success"]
+            </div>
+        </div>
+    }
 </div>
 
 <table class="table table-bordered table-striped">
