@@ -2,8 +2,6 @@
 import { componentFactory } from "./components-factory";
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('PAGE WAS LOADED!!!');
-
     const components = [
         'AppNotifications'
     ];

@@ -9,7 +9,7 @@
  */
 class AppNotifications {
     constructor() {
-        this.alerts = document.querySelectorAll('.alert');
+        this.alerts = document.querySelectorAll('.js-toast');
     }
 
     init() {
