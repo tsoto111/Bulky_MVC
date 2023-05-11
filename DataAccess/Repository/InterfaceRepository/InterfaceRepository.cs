@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Bulky.DataAccess.Repository.InterfaceRepository
 {
-    internal interface InterfaceRepository<T> where T : class
+    public interface InterfaceRepository<T> where T : class
     {
         // T - Represents any generic Model we will operate on, for example Category.
         IEnumerable<T> GetAll();
-        T GetFirstOrDefault(Expression<Func<T, bool>> filter);
+        T? GetFirstOrDefault(Expression<Func<T, bool>> filter);
         void Add(T entity);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entities);
