@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bulky.DataAccess.Repository.InterfaceRepository
 {
-    public interface InterfaceRepository<T> where T : class
+    public interface IRepository<T> where T : class
     {
         // T - Represents any generic Model we will operate on, for example Category.
         IEnumerable<T> GetAll();
