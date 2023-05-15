@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bulky.Models;
 
 namespace Bulky.DataAccess.Repository.InterfaceRepository
 {
-    internal interface Interface1
+    public interface ICategoryRepository : IRepository<Category>
     {
+        void Update(Category obj);
+        void Save();
     }
 }
