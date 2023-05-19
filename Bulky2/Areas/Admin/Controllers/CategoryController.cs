@@ -3,8 +3,9 @@ using Bulky.DataAccess.Repository.InterfaceRepository;
 using Bulky.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BulkyWeb.Controllers
+namespace BulkyWeb.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         // NOTE: Class param for DB context to share in between different
@@ -81,7 +82,7 @@ namespace BulkyWeb.Controllers
 
         [HttpPost]
         public IActionResult Edit(Category obj)
-        {   
+        {
             if (ModelState.IsValid)
             {
                 _unitOfWork.Category.Update(obj);
