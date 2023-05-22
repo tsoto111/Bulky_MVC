@@ -1,0 +1,43 @@
+﻿@model List<Product>
+
+<div class="row py-4">
+    <div class="col-6">
+        <h2>Product List</h2>
+    </div>
+    <div class="col-6 text-end">
+        <a asp-controller="Product" asp-action="Create" class="btn btn-primary d-inline-flex align-items-center">
+            <i class="bi bi-plus-circle pe-2"></i>Create New Product
+        </a>
+    </div>
+    <partial name="_Notification" />
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Product Title</th>
+            <th>Description</th>
+            <th>ISBN</th>
+            <th>Author</th>
+            <th>List Price</th>
+            <th>Price 1 - 50</th>
+            <th>Price for 50+</th>
+            <th>Price for 100+</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model)
+        {
+            <tr>
+                <td>@obj.Title</td>
+                <td>@obj.Description</td>
+                <td>@obj.ISBN</td>
+                <td>@obj.Author</td>
+                <td>@obj.ListPrice</td>
+                <td>@obj.Price</td>
+                <td>@obj.Price50</td>
+                <td>@obj.Price100</td>
+            </tr>
+        }
+    </tbody>
+</table>

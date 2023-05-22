@@ -9,6 +9,7 @@ namespace Bulky.DataAccess.Repository.InterfaceRepository
     public interface IUnitOfWork
     {
         ICategoryRepository Category { get; }
+        IProductRepository Product { get; }
 
         void Save();
     }
