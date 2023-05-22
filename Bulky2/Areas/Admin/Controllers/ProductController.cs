@@ -48,5 +48,38 @@ namespace BulkyWeb.Areas.Admin.Controllers
 
             return View();
         }
+
+        // ============================================
+        // Edit Action
+        // ============================================
+        public IActionResult Edit(int? ID)
+        {
+            if (ID == 0 || ID == null)
+            {
+                return NotFound();
+            }
+
+            Product? productFromDb = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == ID);
+            if (productFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(productFromDb);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Product obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.Product.Update(obj);
+                _unitOfWork.Save();
+                TempData["success"] = "Category edited successfully";
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
     }
 }
