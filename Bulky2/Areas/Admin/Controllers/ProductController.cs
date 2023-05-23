@@ -81,5 +81,44 @@ namespace BulkyWeb.Areas.Admin.Controllers
 
             return View();
         }
+
+        // ============================================
+        // Delete Action
+        // ============================================
+        public ActionResult Delete(int? ID)
+        {
+            if (ID == 0 || ID == null)
+            {
+                return NotFound();
+            }
+
+            Product? productFromDb = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == ID);
+            if (productFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(productFromDb);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeletePOST(int? ID)
+        {
+            if (ID == 0 || ID == null)
+            {
+                return NotFound();
+            }
+
+            Product? productFromDb = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == ID);
+            if (productFromDb == null)
+            {
+                return NotFound();
+            }
+
+            _unitOfWork.Product.Remove(productFromDb);
+            _unitOfWork.Save();
+            TempData["success"] = "Product deleted successfully";
+            return RedirectToAction("Index");
+        }
     }
 }
