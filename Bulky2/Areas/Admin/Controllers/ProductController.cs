@@ -2,6 +2,7 @@
 using Bulky.DataAccess.Repository.InterfaceRepository;
 using Bulky.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BulkyWeb.Areas.Admin.Controllers
 {
@@ -32,6 +33,15 @@ namespace BulkyWeb.Areas.Admin.Controllers
         // ============================================
         public IActionResult Create()
         {
+            // Gather Category Select List Options...
+            IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString(),
+            });
+
+            // Add Category Select List Options to our "View Bag".
+            ViewBag.CategoryList = CategoryList;
             return View();
         }
 
