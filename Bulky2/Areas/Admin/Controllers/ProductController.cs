@@ -1,6 +1,7 @@
 ﻿using Bulky.DataAccess.Repository;
 using Bulky.DataAccess.Repository.InterfaceRepository;
 using Bulky.Models;
+using Bulky.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -33,30 +34,36 @@ namespace BulkyWeb.Areas.Admin.Controllers
         // ============================================
         public IActionResult Create()
         {
-            // Gather Category Select List Options...
-            IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+            ProductViewModel productVM = new ProductViewModel()
             {
-                Text = u.Name,
-                Value = u.Id.ToString(),
-            });
-
-            // Add Category Select List Options to our "View Bag".
-            ViewBag.CategoryList = CategoryList;
-            return View();
+                CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString(),
+                }),
+                Product = new Product()
+            };
+            return View(productVM);
         }
 
         [HttpPost]
-        public IActionResult Create(Product obj)
+        public IActionResult Create(ProductViewModel productVM)
         {
             if(ModelState.IsValid)
             {
-                _unitOfWork.Product.Add(obj);
+                _unitOfWork.Product.Add(productVM.Product);
                 _unitOfWork.Save();
                 TempData["success"] = "Product created successfully";
                 return RedirectToAction("Index");
-            }
+            } else {
+                productVM.CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString(),
+                });
 
-            return View();
+                return View(productVM);
+            }
         }
 
         // ============================================
