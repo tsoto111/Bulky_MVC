@@ -30,9 +30,9 @@ namespace BulkyWeb.Areas.Admin.Controllers
         }
 
         // ============================================
-        // Create Action
+        // Create and Update Action = Upsert
         // ============================================
-        public IActionResult Create()
+        public IActionResult Upsert(int? id)
         {
             ProductViewModel productVM = new ProductViewModel()
             {
@@ -43,50 +43,20 @@ namespace BulkyWeb.Areas.Admin.Controllers
                 }),
                 Product = new Product()
             };
-            return View(productVM);
-        }
 
-        [HttpPost]
-        public IActionResult Create(ProductViewModel productVM)
-        {
-            if(ModelState.IsValid)
+            if (id == null || id == 0)
             {
-                _unitOfWork.Product.Add(productVM.Product);
-                _unitOfWork.Save();
-                TempData["success"] = "Product created successfully";
-                return RedirectToAction("Index");
+                // Create
+                return View(productVM);
             } else {
-                productVM.CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
-                {
-                    Text = u.Name,
-                    Value = u.Id.ToString(),
-                });
-
+                // Update
+                productVM.Product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id);
                 return View(productVM);
             }
         }
 
-        // ============================================
-        // Edit Action
-        // ============================================
-        public IActionResult Edit(int? ID)
-        {
-            if (ID == 0 || ID == null)
-            {
-                return NotFound();
-            }
-
-            Product? productFromDb = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == ID);
-            if (productFromDb == null)
-            {
-                return NotFound();
-            }
-
-            return View(productFromDb);
-        }
-
         [HttpPost]
-        public IActionResult Edit(Product obj)
+        public IActionResult Upsert(Product obj, IFormFile? file)
         {
             if (ModelState.IsValid)
             {

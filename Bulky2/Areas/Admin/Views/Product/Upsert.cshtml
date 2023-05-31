@@ -1,9 +1,10 @@
 ﻿@model ProductViewModel
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
+    <input asp-for="Product.Id" hidden/>
     <div class="border p-3 mt-4">
         <div class="row pb-2">
-            <h2>Create Category</h2>
+            <h2>@(Model.Product.Id != 0 && Model.Product.Id != null ? "Update" : "Create") Category</h2>
             <hr />
         </div>
         <div class="mb-3">
@@ -58,7 +59,7 @@
             <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
         </div>
         <button type="submit" class="btn btn-primary">
-            Create
+            @(Model.Product.Id != 0 && Model.Product.Id != null ? "Update" : "Create")
         </button>
         <a asp-controller="Product" asp-action="Index" class="btn btn-secondary">
             Back To List
